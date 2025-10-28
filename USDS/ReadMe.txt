@@ -14,14 +14,14 @@
 
 NOTES:
 1. I tried to keep the amount of time to what was required 4-6 hours
-2. It would be helpful to have an XSLT Transform document for display, JSON or the like which would take more time. 
+2. It would be helpful to have an XSLT Transform document for display, JSON or the like, which would take more time. 
 3. I would have liked more time to study the data itself and develop a frame of reference
-4. I left some stubs in here to show what else could be added
+4. I left stubs in here to show what else could be added
 5. This could easily be modified to leverage more years of data 
-6. Could have used a database and tables instead of the file system, would have required some data access code
+6. Could have used a database and tables instead of the file system, which would have required some data access code
 7. A search option could easily be added
-8. This is more of a coding and less of a data analysis excercise
-9. I added the checksum but it wasn't fully implemented for time 
+8. This is more of a coding and less of a data analysis exercise
+9. I added the checksum, but it wasn't fully implemented for time 
 10. Display of historical changes to the data wasn't as robust as I'd have liked 
 
 GitHub: https://github.com/RidgelineCodeVault/USDS
