@@ -1,13 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Security.Cryptography;
-using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Linq;
-using System.IO;
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace USDS.Controllers
 {
@@ -33,7 +25,7 @@ namespace USDS.Controllers
             }
             return result;
         }
-
+        
         // GET api/Data/{id}
         [HttpGet("{id}")]
         public Dictionary<string, string> Get(string id)
@@ -52,7 +44,7 @@ namespace USDS.Controllers
             }
             return result;
         }
-
+        
         [HttpGet("{subFolder}/{fileName}")]
         public string Get(string subFolder, string fileName)
         {
@@ -72,28 +64,26 @@ namespace USDS.Controllers
 
             return filePath;
         }
-
-
-
+        
         // POST api/<ValuesController>
         [HttpPost]
         public void Post([FromBody] string value, string id, string fileName)
         {
-            // Update file
+            
         }
 
         // PUT api/<ValuesController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
-            // Add new file
+            
         }
 
         // DELETE api/<ValuesController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            // delete file
+           
         }
 
 

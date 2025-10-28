@@ -6,8 +6,10 @@
 
         public Dictionary<string, string>? Files;
 
-        public int? WordCount;
+        public string? Title;
 
+        public string? WordCount;
+        public string? AmDate;
         public string? RevisionDate;
         
         public string? XmlData;

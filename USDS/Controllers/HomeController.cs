@@ -1,13 +1,6 @@
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System;
 using System.Diagnostics;
-using System.Net.Http;
-using System.Reflection;
-using System.Reflection.Metadata;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using System.Xml;
 using USDS.Models;
 
@@ -17,10 +10,10 @@ namespace USDS.Controllers
     {
         private readonly ILogger<HomeController> _logger = logger;
         private readonly HttpClient _httpClient = new();
+
+        // TODO: to run this use a local URL CHANGE THIS to that URL 
         private readonly string _url = "http://localhost:5268/";
-
-
-
+        
         public async Task<IActionResult> Index(string? id, string? fileName)
         {
             var model = new IndexViewModel
@@ -57,47 +50,55 @@ namespace USDS.Controllers
             return View(model);
         }
 
+        
+        
         public void ParseXmlFile(string filePath, ref IndexViewModel model)
         {
             string contents = System.IO.File.ReadAllText(filePath);
-            // Fill model values
+            
+            XmlDocument doc = new XmlDocument();
+            doc.Load(filePath);
+
+            XmlNode titleNode = doc.DocumentElement?.SelectSingleNode("/CFRDOC/FMTR/TITLEPG/TITLENUM");
+            model.Title = $@"{titleNode?.InnerText}";
+
+            XmlNode subject = doc.DocumentElement.SelectSingleNode("/CFRDOC/FMTR/TITLEPG/SUBJECT");
+            model.Subject = $@"{subject?.InnerText}";
+
+            XmlNode revisedDate = doc.DocumentElement.SelectSingleNode("/CFRDOC/FMTR/TITLEPG/REVISED");
+            model.RevisionDate = $@"{revisedDate?.InnerText}";
+
+            XmlNode amDate = doc.DocumentElement.SelectSingleNode("/CFRDOC/AMDDATE");
+            model.AmDate = $@"{amDate?.InnerText}";
+            
+            // Use an XSLT for a visual transform.  More time required... 
+            model.XmlData = doc.InnerText;
+
             var wordCount = 0;
-
             XmlReader reader = XmlReader.Create(filePath);
-
             while (reader.Read())
             {
+                // Could leverage this to parse document differently
+                // Takes time to parse large files
                 switch (reader.NodeType)
                 {
-                    case XmlNodeType.Element:
-                        if (reader.Name.ToString() == "REVISED")
-                        {
-                            model.RevisionDate = reader.Value;
-                            break;
-                        }
-
-
-                        //Console.Write("<{0}>", reader.Name);
-                        break;
+                    //case XmlNodeType.Element:
+                    //    //Console.Write("<{0}>", reader.Name);
+                    //    break;
                     case XmlNodeType.Text:
                         var words = reader.Value.Split(" ");
                         wordCount += words.Length;
-
-                        if (reader.Name.ToString() == "SUBJECT" && !string.IsNullOrEmpty(reader.Value))
-                        {
-                            model.Subject = reader.Value;
-                            break;
-                        }
                         //Console.Write(reader.Value);
                         break;
-                    case XmlNodeType.EndElement:
-                        //Console.Write("</{0}>", reader.Name);
-                        break;
+                    //case XmlNodeType.EndElement:
+                    //    //Console.Write("</{0}>", reader.Name);
+                    //    break;
                 }
             }
-
-            model.WordCount = wordCount;
+            model.WordCount = $@"Word Count: {wordCount}";
         }
+
+
 
         public IActionResult Privacy()
         {

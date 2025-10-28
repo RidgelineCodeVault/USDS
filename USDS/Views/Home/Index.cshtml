@@ -9,7 +9,7 @@
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div> *@
 <div class="row">
-    <div class="col-2">
+    <div class="col-1">
         <h4>Folders</h4>
         @{
             if (Model.Folders is {Count: > 0})
@@ -26,8 +26,7 @@
             }
         }
     </div>
-    <div class="col-4">
-
+    <div class="col-3">
         <h4>Files</h4>
         @{
             if (Model.Files is {Count: > 0})
@@ -45,19 +44,18 @@
         }
     </div>
 
-    <div class="col-6">
-
+    <div class="col-8">
         <h4>File Contents</h4>
-        <p>Display File Contents<br />
-            Revised Date: @Model.RevisionDate <br />
-            Word Count: @Model.WordCount <br />
-            Subject: @Model.Subject <br />
+        <p>
+            @Model.Title @Model.Subject <br />
+            @Model.AmDate <br/>
+            @Model.RevisionDate <br/>
+            @Model.WordCount 
+        </p>
             <div>
                 @Model.XmlData
             </div>
-            
-
-        </p>
+        
     </div>
 
 
