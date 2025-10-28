@@ -1,0 +1,64 @@
+﻿@model IndexViewModel
+@{
+    ViewData["Title"] = "Home Page";
+    
+}
+
+@* <div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div> *@
+<div class="row">
+    <div class="col-2">
+        <h4>Folders</h4>
+        @{
+            if (Model.Folders is {Count: > 0})
+            {
+                foreach (var folder in Model.Folders.OrderBy(o => o.Key))
+                {
+                    @Html.ActionLink(folder.Value, "Index", "Home",  new {id = folder.Value }, null)
+                    <br />
+                }
+            }
+            else
+            {
+                <p>No folders found</p>
+            }
+        }
+    </div>
+    <div class="col-4">
+
+        <h4>Files</h4>
+        @{
+            if (Model.Files is {Count: > 0})
+            {
+                foreach (var file in Model.Files)
+                {
+                    @Html.ActionLink(file.Value, "Index", "Home",  new {fileName = file.Value }, null)
+                    <br />
+                }
+            }
+            else
+            {
+                <p>Select Folder from left</p>
+            }
+        }
+    </div>
+
+    <div class="col-6">
+
+        <h4>File Contents</h4>
+        <p>Display File Contents<br />
+            Revised Date: @Model.RevisionDate <br />
+            Word Count: @Model.WordCount <br />
+            Subject: @Model.Subject <br />
+            <div>
+                @Model.XmlData
+            </div>
+            
+
+        </p>
+    </div>
+
+
+</div>
