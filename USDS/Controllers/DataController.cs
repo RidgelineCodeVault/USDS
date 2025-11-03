@@ -7,6 +7,7 @@ namespace USDS.Controllers
     [ApiController]
     public class DataController : ControllerBase
     {
+        // TODO: Probably could have combined two of these calls but ran short on time.
         // GET: api/Data - default
         [HttpGet]
         public Dictionary<string,string> Get()
@@ -26,6 +27,7 @@ namespace USDS.Controllers
             return result;
         }
         
+        // Takes parameter
         // GET api/Data/{id}
         [HttpGet("{id}")]
         public Dictionary<string, string> Get(string id)
